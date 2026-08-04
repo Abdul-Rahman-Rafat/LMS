@@ -12,12 +12,17 @@ export const AppContextProvider = ({ children }) => {
   useEffect(() => {
     fetchCourses();
   }, []);
+
   const calculateRating = (course) => {
-    if (!course.courseRatings || course.courseRatings.length === 0) return 0;
+    if (!course || !course.courseRatings?.length) {
+      return 0;
+    }
+
     const totalRating = course.courseRatings.reduce(
       (sum, rating) => sum + rating.rating,
       0,
     );
+
     return totalRating / course.courseRatings.length;
   };
   const value = {
