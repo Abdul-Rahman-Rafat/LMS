@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { assets } from "../../assets/assets.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useClerk, UserButton, useUser } from "@clerk/react";
+import { AppContext } from "../../context/AppContext.jsx";
 
 const Navbar = () => {
   const isCourseListPage = location.pathname.includes("/course-list");
+  const navigate = useNavigate();
   const { openSignUp } = useClerk();
   const { user } = useUser();
+  const { isEducator } = useContext(AppContext);
 
   return (
     <div
@@ -14,17 +17,27 @@ const Navbar = () => {
     flex justify-between items-center p-4 ${isCourseListPage ? "bg-white" : "bg-cyan-100/70"} shadow-md sm:px-10 md:px-14 lg:px-36 border-b border-gray-500 py-4
     `}
     >
-      <img
-        src={assets.logo}
-        alt="Logo"
-        className="w-28 lg:w-32 cursor-pointer"
-      />
+      <Link to="/">
+        <img
+          src={assets.logoEduCore}
+          alt="Logo"
+          className="w-28 lg:w-32 cursor-pointer"
+        />
+      </Link>
+
       <div className="hidden md:flex items-center gap-5 text-gray-500">
         <div className="flex items-center gap-5">
           {user && (
             <>
-              <button> Become an Instructor</button> |{" "}
-              <Link to="my-enrollments">My Enrollments</Link>
+              <button
+                onClick={() =>
+                  navigate(isEducator ? "/educator" : "/educator/educator")
+                }
+              >
+                {" "}
+                {isEducator ? "Educator Dashboard" : "Become an Instructor"}
+              </button>{" "}
+              | <Link to="my-enrollments">My Enrollments</Link>
             </>
           )}
         </div>
@@ -47,8 +60,15 @@ const Navbar = () => {
           <div className="flex items-center gap-5">
             {user && (
               <>
-                <button> Become an Instructor</button> |{" "}
-                <Link to="my-enrollments">My Enrollments</Link>
+                <button
+                  onClick={() =>
+                    navigate(isEducator ? "/educator" : "/educator/educator")
+                  }
+                >
+                  {" "}
+                  {isEducator ? "Educator Dashboard" : "Become an Instructor"}
+                </button>{" "}
+                | <Link to="my-enrollments">My Enrollments</Link>
               </>
             )}
           </div>

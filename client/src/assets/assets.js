@@ -1,4 +1,6 @@
 import logo from "./logo.svg";
+import logoEduCore from "./logoEduCore.png";
+import EduCore from "./logoEduCore.jpg";
 import logo_dark from "./logo_dark.svg";
 import search_icon from "./search_icon.svg";
 import cross_icon from "./cross_icon.svg";
@@ -46,6 +48,8 @@ import heroBanner from "./heroBanner.png";
 
 export const assets = {
   logo,
+  logoEduCore,
+  EduCore,
   search_icon,
   sketch,
   microsoft_logo,
