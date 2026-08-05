@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const Rating = () => {
-  return <div>Rating</div>;
+const Rating = (intialRating, onRate) => {
+  const [rating, setRating] = useState(intialRating || 0);
+  const handleRating = (value) => {
+    setRating(value);
+    if (onRate) onRate(value);
+  };
+  useEffect(() => {
+    if (intialRating) setRating(intialRating);
+  }, [intialRating]);
+  return (
+    <div>
+      {Array.from({ length: 5 }, (_, index) => {
+        const starValue = index + 1;
+        return (
+          <span
+            onClick={() => handleRating(starValue)}
+            key={index}
+            className={`text-x1 sm:text-2x1 cursor-pointer transition-colors ${starValue <= rating ? "text-yellow-500" : "text-gray-400"}`}
+          >
+            <span key={index}>★</span>
+          </span>
+        );
+      })}
+    </div>
+  );
 };
 
 export default Rating;
