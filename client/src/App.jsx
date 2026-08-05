@@ -12,32 +12,30 @@ import Dashboard from "./pages/educator/Dashboard.jsx";
 import AddCourse from "./pages/educator/AddCourse.jsx";
 import StudentsEnrolled from "./pages/educator/StudentsEnrolled.jsx";
 import Navbar from "./components/student/Navbar.jsx";
+import MainLayout from "./MainLayout.jsx";
 
 const App = () => {
-  const isEducatorPage = useMatch("/educator/*");
   return (
     <div className="text-default bg-white min-h-screen">
-      {!isEducatorPage && <Navbar />}
-
-    
-
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/course-list" element={<CoursesList />} />
-        <Route path="/course-list/:input" element={<CoursesList />} />
-        <Route path="/course/:id" element={<CourseDetails />} />
-        <Route path="/my-enrollments" element={<MyEnrollments />} />
-        <Route path="/player/:courseId" element={<Player />} />
-        <Route path="/loading/:path" element={<Loading />} />
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="course-list" element={<CoursesList />} />
+          <Route path="course-list/:input" element={<CoursesList />} />
+          <Route path="course/:id" element={<CourseDetails />} />
+          <Route path="my-enrollments" element={<MyEnrollments />} />
+          <Route path="player/:courseId" element={<Player />} />
+          <Route path="loading/:path" element={<Loading />} />
 
-        <Route path="/educator" element={<Educator />}>
-          <Route path="educator" element={<Dashboard />} />
-          <Route path="add-course" element={<AddCourse />} />
-          <Route path="my-courses" element={<MyCourses />} />
-          <Route path="students-enrolled" element={<StudentsEnrolled />} />
+          <Route path="/educator" element={<Educator />}>
+            <Route index element={<Dashboard />} />
+            <Route path="add-course" element={<AddCourse />} />
+            <Route path="my-courses" element={<MyCourses />} />
+            <Route path="students-enrolled" element={<StudentsEnrolled />} />
+          </Route>
+
+          <Route path="*" element={<div>Page Not Found</div>} />
         </Route>
-
-        <Route path="*" element={<div>Page Not Found</div>} />
       </Routes>
     </div>
   );
